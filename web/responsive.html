@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Portfolio ito ha!</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="responsive.css">
+   
+</head>
+<body>
+    
+<canvas id="floatingDots"></canvas>
+
+<header class="navbar">
+    <div class="logo">
+        <h4>https://Doss</h4>
+    </div>
+   <nav class="morph-nav">
+    <div class="nav-indicator"></div>
+
+    <a href="#home" class="nav-item active">Home</a>
+    <a href="#about" class="nav-item">About Me</a>
+    <a href="#skills" class="nav-item">Skills</a>
+    <a href="#gallery" class="nav-item">Gallery</a>
+    <a href="#contact" class="nav-item">Contact</a>
+</nav>
+</header>
+
+<section class="about-section" id="home">
+    <div class="about-container">
+        <div class="about-image">
+            <img src="c:\xampp\htdocs\myweb\image\francis.png" alt="Profile">
+            <div class="image-tagline">
+                <h3>A designer who judges a book</h3>
+                <p class="cover">by its <span>cover</span></p>
+                <p class="small-text">
+                    Because if the cover does not impress you, what else can?
+                </p>
+            </div>
+        </div>
+        <div class="about-text">
+            <h1>FRANCIS JEREMY PADILLA</h1>
+            <p>
+                A <span class="highlight">UI designer</span> with an
+                <span class="highlight">information technology background</span> blending creativity and technical expertise to craft modern, functional, and user-centered interfaces. I focus on creating intuitive designs that enhance usability, improve user experience, and align seamlessly with system requirements and business goals.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="about-section" id="about">
+    <h2 class="about-heading">ABOUT ME</h2>
+    <p class="about-text-center">
+        I am a motivated <span class="highlight">UI designer</span> with an <span class="highlight">information technology background</span>, passionate about creating modern, functional, and user-focused digital experiences. I enjoy designing interfaces that are visually appealing, well-structured, and easy to navigate. By combining creativity with technical knowledge, I aim to deliver designs that effectively communicate ideas and improve user interaction. I am continuously learning and refining my skills to grow as a designer in the digital field.
+    </p>
+</section>
+
+<section class="skills-section" id="skills">
+    <h2>SKILLS</h2>
+    <div class="skills-content">
+
+        <!-- HTML -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/w3_html5/w3_html5-icon.svg" alt="HTML Logo">
+            </div>
+            <span class="skill-title">HTML</span>
+            <p>I enjoy using HTML because it lets me bring my ideas to the browser in a clear and structured way.</p>
+        </div>
+
+        <!-- CSS -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" alt="CSS Logo">
+            </div>
+            <span class="skill-title">CSS</span>
+            <p>With CSS, I can make my designs feel polished, professional, and user-friendly.</p>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/javascript/javascript-icon.svg" alt="JavaScript Logo">
+            </div>
+            <span class="skill-title">JavaScript</span>
+            <p>JavaScript allows me to create dynamic features that improve user experience.</p>
+        </div>
+
+        <!-- Dart -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/dartlang/dartlang-icon.svg" alt="Dart Logo">
+            </div>
+            <span class="skill-title">Dart</span>
+            <p>I use Dart to build apps that are fast, smooth, and look great on any device.
+                  It’s my go-to for creating clean, interactive interfaces with Flutter.</p>
+        </div>
+
+        <!-- Firebase -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg" alt="Firebase Logo">
+            </div>
+            <span class="skill-title">Firebase / Firestore</span>
+            <p>With Firebase, I can focus on designing great interfaces while it handles the data and storage.</p>
+        </div>
+
+         <!-- Figma -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/figma/figma-icon.svg" alt="Figma Logo">
+            </div>
+            <span class="skill-title">Figma</span>
+            <p>I use Figma to design app and website interfaces, plan layouts, and test ideas before coding.</p>
+        </div>
+
+        <!-- Blender -->
+        <div class="skill-item">
+            <div class="skill-icon">
+                <img src="https://www.vectorlogo.zone/logos/blender/blender-icon.svg" alt="Blender Logo">
+            </div>
+            <span class="skill-title">Blender</span>
+            <p>I create 3D models and animations using Blender, from characters to environments.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="gallery-section" id="gallery">
+    <h2>GALLERY</h2>
+
+<div class="morph-gallery">
+
+    <div class="morph-card active">
+        <img src="c:\xampp\htdocs\myweb\image\blender.png" alt="">
+        <div class="overlay">
+            <h3>Light House</h3>
+            <p>3D Light House Design</p>
+            <small>2026-05-08</small>
+        </div>
+    </div>
+
+    <div class="morph-card">
+        <img src="image/character.png" alt="">
+        <div class="overlay">
+            <h3>Character</h3>
+            <p>3D Character Design</p>
+            <small>2026-05-08</small>
+        </div>
+    </div>
+
+    <div class="morph-card">
+        <img src="image/house.png" alt="">
+        <div class="overlay">
+            <h3>House</h3>
+            <p>Architecture Style</p>
+            <small>2026-05-08</small>
+        </div>
+    </div>
+
+    <div class="morph-card">
+        <img src="image/map.png" alt="">
+        <div class="overlay">
+            <h3>Map</h3>
+            <p>Game Map Design</p>
+            <small>2026-05-08</small>
+        </div>
+    </div>
+
+    <div class="morph-card">
+        <img src="image/vector.png" alt="">
+        <div class="overlay">
+            <h3>Vector</h3>
+            <p>Illustration</p>
+            <small>2026-05-08</small>
+        </div>
+    </div>
+
+</div>
+    
+</section>
+
+<section class="contact-section" id="contact">
+    <h2>CONTACT</h2>
+    <div class="contact-content">
+
+         <div class="contact-discuss">
+    <h3>Let's discuss your <span class="highlight-word">project</span></h3>
+    <p>Have an idea? I can help you bring it to life. Contact me and let’s create something amazing together!</p>
+    </div>
+
+        <div class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+639759931654" target="_blank">0975 993 1654</a>
+        </div>
+        <div class="contact-item">
+            <i class="fa-solid fa-user"></i>
+            <a href="https://web.facebook.com/francis.jeremy.padilla" target="_blank">Francis Jeremy Padilla</a>
+        </div>
+        <div class="contact-item">
+            <i class="fa-brands fa-instagram"></i>
+            <a href="https://www.instagram.com/_dosss/" target="_blank">@_dosss</a>
+        </div>
+        <div class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            <a href="https://mail.google.com/mail/u/0/#inbox" target="_blank">francisjeremypadilla@gmail.com</a>
+    
+        </div>
+</section>
+
+<footer>
+    <p>© 2026 Francis Jeremy S. Padilla. All rights reserved.</p>
+</footer>
+ <script src="francis.js" defer></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</body>
+</html>
