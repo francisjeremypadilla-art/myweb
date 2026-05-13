@@ -131,54 +131,14 @@
 
 <section class="gallery-section" id="gallery">
     <h2>GALLERY</h2>
-
+    <div class="gallery-header">
+        <button class="add-btn" onclick="openForm()">
+            <i class="fa-solid fa-plus"></i> Add Project
+        </button>
+    </div>
 <div class="morph-gallery">
 
-    <div class="morph-card active">
-        <img src="c:\xampp\htdocs\myweb\image\blender.png" alt="">
-        <div class="overlay">
-            <h3>Light House</h3>
-            <p>3D Light House Design</p>
-            <small>2026-05-08</small>
-        </div>
-    </div>
-
-    <div class="morph-card">
-        <img src="image/character.png" alt="">
-        <div class="overlay">
-            <h3>Character</h3>
-            <p>3D Character Design</p>
-            <small>2026-05-08</small>
-        </div>
-    </div>
-
-    <div class="morph-card">
-        <img src="image/house.png" alt="">
-        <div class="overlay">
-            <h3>House</h3>
-            <p>Architecture Style</p>
-            <small>2026-05-08</small>
-        </div>
-    </div>
-
-    <div class="morph-card">
-        <img src="image/map.png" alt="">
-        <div class="overlay">
-            <h3>Map</h3>
-            <p>Game Map Design</p>
-            <small>2026-05-08</small>
-        </div>
-    </div>
-
-    <div class="morph-card">
-        <img src="image/vector.png" alt="">
-        <div class="overlay">
-            <h3>Vector</h3>
-            <p>Illustration</p>
-            <small>2026-05-08</small>
-        </div>
-    </div>
-
+    
 </div>
     
 </section>
@@ -210,6 +170,38 @@
     
         </div>
 </section>
+
+<div class="modal" id="addModal">
+    <div class="modal-content">
+
+        <h2>Add New Project</h2>
+
+        <form class="form-box" id="projectForm">
+
+            <input type="text" id="projectTitle" placeholder="Project title" required>
+
+            <textarea id="projectDescription" placeholder="Project description" rows="4" required></textarea>
+
+            <input type="date" id="projectDate" required>
+
+            <input type="file" id="projectImage" accept="image/*" required>
+
+            <div class="btn-group">
+                <button type="submit" class="save-btn">
+                    Save
+                </button>
+
+                <button type="button" class="cancel-btn" onclick="closeForm()">
+                    Cancel
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<div id="toast"></div>
 
 <footer>
     <p>© 2026 Francis Jeremy S. Padilla. All rights reserved.</p>

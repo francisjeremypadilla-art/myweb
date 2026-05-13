@@ -1,56 +1,85 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "portfolio_db");
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+require_once 'getDBconnection.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+$conn = getDBConnection();
 
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $date = $_POST['date'];
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER['REQUEST_METHOD'];
 
-    if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+if ($uri === "/myweb/web/save_project.php/save_project") {
 
-        $imageName = time() . "_" . $_FILES['image']['name'];
-        $tmpName = $_FILES['image']['tmp_name'];
-
-        $targetFolder = "image/";
-
-        if(!is_dir($targetFolder)) {
-            mkdir($targetFolder, 0777, true);
-        }
-
-        $targetFile = $targetFolder . basename($imageName);
-
-        if(move_uploaded_file($tmpName, $targetFile)) {
-
-            $stmt = $conn->prepare(
-                "INSERT INTO projects(title, description, image_path, date)
-                 VALUES (?, ?, ?, ?)"
-            );
-
-            $stmt->bind_param(
-                "ssss",
-                $title,
-                $description,
-                $targetFile,
-                $date
-            );
-
-            $stmt->execute();
-
-            header("Location: index.php");
-            exit();
-
-        } else {
-            echo "Failed to upload image.";
-        }
-
-    } else {
-        echo "Image upload error.";
+    if($method !== "POST") {
+        http_response_code(405);
+        echo json_encode(['error' => 'Method not allowed']);
+        exit;
     }
+
+    $project_data = json_decode($_POST['project_data'], true);
+    $images = $_FILES['images'] ?? null;
+    $fileName = $images['name'];
+
+    $tmp = $images['tmp_name'];
+ 
+    $title = $project_data['title'];
+    $description = $project_data['description'];
+    $date = $project_data['date'];
+    $imageUrl = '/images/' . $fileName;
+
+
+    if(!$project_data) {
+        http_response_code(400);
+        echo json_encode(['error' => 'bad request']);
+        exit;
+    }
+      
+    $targetPath = __DIR__ . '/images/' . $fileName;
+
+    move_uploaded_file($tmp, $targetPath);
+
+    $conn = getDBConnection();
+
+    $stmt = $conn->prepare("INSERT INTO projects (title, description, date, imageUrl) VALUES(?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $title, $description, $date, $imageUrl);
+    $stmt->execute();
+
+    http_response_code(201);
+    echo json_encode(["message" => "created one", "status" => 201]);
+
+    $conn->close();
+
+    exit;
 }
+
+if ($uri === "/myweb/web/save_project.php/get_projects") {
+    header('Content-Type: application/json');
+
+    $result = $conn->query("SELECT * FROM projects ORDER BY id DESC");
+
+    $projects = [];
+
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+
+            $projects[] = [
+                "id" => $row["id"],
+                "title" => $row["title"],
+                "description" => $row["description"],
+                "date" => $row["date"],
+                "imageUrl" => $row["imageUrl"]
+            ];
+        }
+    }
+
+    echo json_encode($projects);
+
+    $conn->close();
+    exit;
+
+}
+
+echo json_encode(["message" => "why?"]);
 ?>
