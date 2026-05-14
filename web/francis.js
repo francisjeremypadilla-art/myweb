@@ -356,7 +356,18 @@ function showToast(message, type = "success") {
 }) ();
 
 // edit one
-(() => {
+(() => { 
+
+    document.querySelector(".morph-gallery").addEventListener("click", async (e) => {
+        if (!e.target.closest(".save")) return;
+        const id = e.target.dataset.index;
+        console.log("Saving project with ID:");
+        const title = document.getElementById("editTitle").value;
+        const description = document.getElementById("editDescription").value;
+        const date = document.getElementById("editDate").value;
+        updateProject();
+    }); 
+
 
     document.querySelector(".morph-gallery").addEventListener("click", (e) => {
         if (!e.target.closest(".edit-btn")) return;
@@ -370,3 +381,39 @@ function showToast(message, type = "success") {
     });
 
 }) ();
+
+async function updateProject() {
+    const projectData = {
+        id: 1,
+        title: "New Project Title",
+        description: "Updated description",
+        date: "2026-05-14"
+    };
+
+    const formData = new FormData();
+    formData.append("project_data", JSON.stringify(projectData));
+
+    try {
+        const response = await fetch(
+            "/myweb/web/save_project.php/update_project",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        console.log(data);
+
+        if (response.ok) {
+            alert("Project updated successfully");
+        } else {
+            alert(data.error);
+        }
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
