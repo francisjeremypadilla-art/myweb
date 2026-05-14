@@ -382,6 +382,7 @@ footer {
     color: white;
     border: none;
     border-radius: 30px;
+    margin-top: 24px;
     cursor: pointer;
     font-size: 15px;
     font-weight: 600;
@@ -481,13 +482,16 @@ footer {
 }
 
 .crud-buttons {
-    margin-top: 15px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .edit-btn,
 .delete-btn {
+    border: none;
     padding: 8px 15px;
     border-radius: 20px;
     text-decoration: none;
@@ -644,4 +648,82 @@ footer {
 
 #toast.error {
     border-left: 5px solid #e53935;
+}
+
+.edit-panel {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    opacity: 0;
+    pointer-events: none;
+    width: 300px;
+    padding: 18px;
+
+    background: rgba(26, 0, 26, 0.95);
+    border: 1px solid #b96bff;
+    border-radius: 16px;
+
+    color: white;
+    backdrop-filter: blur(15px);
+
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-panel.show {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.edit-panel h3 {
+    margin: 0;
+    color: #b96bff;
+    font-size: 18px;
+}
+
+.edit-panel input,
+.edit-panel textarea {
+    width: 100%;
+    padding: 10px;
+
+    border-radius: 10px;
+    border: none;
+
+    background: #2b002b;
+    color: white;
+
+    outline: none;
+}
+
+.edit-panel textarea {
+    min-height: 80px;
+    resize: none;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-panel button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.save {
+    background: linear-gradient(135deg, #b96bff, #9089fc);
+    color: white;
+}
+
+.cancel {
+    background: transparent;
+    border: 1px solid #b96bff;
+    color: #b96bff;
 }

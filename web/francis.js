@@ -338,6 +338,11 @@ function showToast(message, type = "success") {
                         <p>${p.description}</p>
                         <small>${p.date}</small>
                     </div>
+
+                    <div class="crud-buttons">
+                        <button class="edit-btn" data-index="${p.id}">Edit</button>
+                        <button class="delete-btn" data-index="${p.id}">Delete</button>
+                     </div>
                 </div>
             `;
         });
@@ -347,5 +352,21 @@ function showToast(message, type = "success") {
     } catch (err) {
         console.error("Failed to load projects:", err);
     }
+
+}) ();
+
+// edit one
+(() => {
+
+    document.querySelector(".morph-gallery").addEventListener("click", (e) => {
+        if (!e.target.closest(".edit-btn")) return;
+
+        document.querySelector(".edit-panel").classList.add("show");
+        
+    });
+
+    document.querySelector(".cancelEdit").addEventListener("click", () => {
+        document.querySelector(".edit-panel").classList.remove("show");
+    });
 
 }) ();
