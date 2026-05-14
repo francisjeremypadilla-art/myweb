@@ -1,45 +1,45 @@
 // ================= GSAP ANIMATION =================
 
-let tl = gsap.timeline();
+// let tl = gsap.timeline();
 
-tl.from(".navbar", {
-    y: -100,
-    opacity: 0,
-    duration: 0.8,
-    ease: "power2.out"
-})
+// tl.from(".navbar", {
+//     y: -100,
+//     opacity: 0,
+//     duration: 0.8,
+//     ease: "power2.out"
+// })
 
-.from(".logo", {
-    y: -20,
-    opacity: 0,
-    duration: 0.5
-})
+// .from(".logo", {
+//     y: -20,
+//     opacity: 0,
+//     duration: 0.5
+// })
 
-.from(".nav-item", {
-    y: -20,
-    opacity: 0,
-    duration: 0.5,
-    stagger: 0.2,
-    ease: "back.out(1.7)"
-})
+// .from(".nav-item", {
+//     y: -20,
+//     opacity: 0,
+//     duration: 0.5,
+//     stagger: 0.2,
+//     ease: "back.out(1.7)"
+// })
 
-.from(".about-image", {
-    y: -20,
-    opacity: 0,
-    duration: 0.5
-})
+// .from(".about-image", {
+//     y: -20,
+//     opacity: 0,
+//     duration: 0.5
+// })
 
-.from(".about-text h1", {
-    y: 20,
-    opacity: 0,
-    duration: 0.5
-})
+// .from(".about-text h1", {
+//     y: 20,
+//     opacity: 0,
+//     duration: 0.5
+// })
 
-.from(".about-text p", {
-    y: 20,
-    opacity: 0,
-    duration: 0.5
-});
+// .from(".about-text p", {
+//     y: 20,
+//     opacity: 0,
+//     duration: 0.5
+// });
 
 
 // ================= FLOATING DOTS =================
@@ -223,3 +223,150 @@ window.addEventListener("click", function(e) {
     }
 
 });
+
+
+// POST PROJECT
+(() => {
+
+    const form = document.getElementById("projectForm");
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const title =
+            document.getElementById("projectTitle").value;
+
+        const description =
+            document.getElementById("projectDescription").value;
+
+        const date =
+            document.getElementById("projectDate").value;
+
+        const image =
+            document.getElementById("projectImage").files[0];
+
+        if (!image) {
+            alert("Please choose an image");
+            return;
+        }
+
+        const projectData = {
+            title,
+            description,
+            date
+        };
+
+        const formData = new FormData();
+
+        formData.append(
+            "project_data",
+            JSON.stringify(projectData)
+        );
+
+        formData.append(
+            "images",
+            image
+        );
+
+        try {
+            const response = await fetch(
+                "http://localhost:80/myweb/web/save_project.php/save_project",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                showToast(result.message, "error");
+            }
+
+            showToast(result.message, "success");
+
+
+            form.reset();
+            closeForm();
+
+        } catch (error) {
+            console.error(error);
+        }
+    });
+
+}) ();
+
+function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.className = type;
+
+    gsap.to(toast, {
+        x: -400,
+        opacity: 1,
+        duration: 0.4,
+        ease: "power3.out"
+    });
+
+    setTimeout(() => {
+        gsap.to(toast, {
+            x: 0,
+            opacity: 0,
+            duration: 0.4
+        });
+    }, 3000);
+}
+
+(async () => {
+    
+    try {
+        const res = await fetch("http://localhost:80/myweb/web/save_project.php/get_projects");
+        const projects = await res.json();
+
+        const gallery = document.querySelector(".morph-gallery");
+
+        let html = "";
+
+        projects.forEach((p, index) => {
+
+            html += `
+                <div class="morph-card ${index === 0 ? "active" : ""}">
+                    <img src="http://localhost:80/myweb/web/${p.imageUrl}" alt="${p.title}">
+                    <div class="overlay">
+                        <h3>${p.title}</h3>
+                        <p>${p.description}</p>
+                        <small>${p.date}</small>
+                    </div>
+
+                    <div class="crud-buttons">
+                        <button class="edit-btn" data-index="${p.id}">Edit</button>
+                        <button class="delete-btn" data-index="${p.id}">Delete</button>
+                     </div>
+                </div>
+            `;
+        });
+
+        gallery.innerHTML = html;
+
+    } catch (err) {
+        console.error("Failed to load projects:", err);
+    }
+
+}) ();
+
+// edit one
+(() => {
+
+    document.querySelector(".morph-gallery").addEventListener("click", (e) => {
+        if (!e.target.closest(".edit-btn")) return;
+
+        document.querySelector(".edit-panel").classList.add("show");
+        
+    });
+
+    document.querySelector(".cancelEdit").addEventListener("click", () => {
+        document.querySelector(".edit-panel").classList.remove("show");
+    });
+
+}) ();
