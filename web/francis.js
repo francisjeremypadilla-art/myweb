@@ -331,7 +331,7 @@ function showToast(message, type = "success") {
         projects.forEach((p, index) => {
 
             html += `
-                <div class="morph-card ${index === 0 ? "active" : ""}">
+                <div class="morph-card" data-card-id="${p.id}">
                     <img src="http://localhost:80/myweb/web/${p.imageUrl}" alt="${p.title}">
                     <div class="overlay">
                         <h3>${p.title}</h3>
@@ -358,19 +358,29 @@ function showToast(message, type = "success") {
 // edit one
 (() => {
 
-    document.querySelector(".morph-gallery").addEventListener("click", async (e) => {
-        if (!e.target.closest(".save")) return;
-        const id = e.target.dataset.index;
-        console.log("Saving project with ID:");
+    document.querySelector(".edit-panel").addEventListener("click", async (e) => {
+        if (!e.target.closest(".saveEdit")) return;
+        const id = e.target.closest(".saveEdit").dataset.projectId;
+        console.log("Saving project with ID:" + id);
+
         const title = document.getElementById("editTitle").value;
         const description = document.getElementById("editDescription").value;
         const date = document.getElementById("editDate").value;
-        updateProject();
+
+        const fieldToEdit = {
+            id: id,
+            title: title,
+            description: description,
+            date: date
+        };
+        
+        updateProject(fieldToEdit);
     });
 
     document.querySelector(".morph-gallery").addEventListener("click", (e) => {
         if (!e.target.closest(".edit-btn")) return;
-
+        console.log(e.target.closest(".morph-card").dataset.cardId);
+        document.querySelector(".saveEdit").dataset.projectId = e.target.closest(".morph-card").dataset.cardId;
         document.querySelector(".edit-panel").classList.add("show");
         
     });
@@ -381,12 +391,15 @@ function showToast(message, type = "success") {
 
 }) ();
 
-async function updateProject() {
+async function updateProject(fieldToEdit) {
+    const card = document.querySelector(`[data-card-id="${fieldToEdit.id}"]`);
+    
+    console.log(fieldToEdit);
     const projectData = {
-        id: 1,
-        title: "New Project Title",
-        description: "Updated description",
-        date: "2026-05-14"
+        id: fieldToEdit.id,
+        title: fieldToEdit.title,
+        description: fieldToEdit.description,
+        date: fieldToEdit.date
     };
 
     const formData = new FormData();
