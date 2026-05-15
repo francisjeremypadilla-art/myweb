@@ -356,7 +356,7 @@ function showToast(message, type = "success") {
 }) ();
 
 // edit one
-(() => { 
+(() => {
 
     document.querySelector(".morph-gallery").addEventListener("click", async (e) => {
         if (!e.target.closest(".save")) return;
@@ -366,8 +366,7 @@ function showToast(message, type = "success") {
         const description = document.getElementById("editDescription").value;
         const date = document.getElementById("editDate").value;
         updateProject();
-    }); 
-
+    });
 
     document.querySelector(".morph-gallery").addEventListener("click", (e) => {
         if (!e.target.closest(".edit-btn")) return;
@@ -416,4 +415,3 @@ async function updateProject() {
         console.error(error);
     }
 }
-
