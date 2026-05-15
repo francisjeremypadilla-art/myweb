@@ -81,5 +81,38 @@ if ($uri === "/myweb/web/save_project.php/get_projects") {
 
 }
 
+if ($uri === "/myweb/web/save_project.php/update_project") {
+    header('Content-Type: application/json');
+
+    if($method !== "POST") {
+        http_response_code(405);
+        echo json_encode(['error' => 'Method not allowed']);
+        exit;
+    }
+
+    $project_data = json_decode($_POST['project_data'], true);
+
+    if(!$project_data) {
+        http_response_code(400);
+        echo json_encode(['error' => 'bad request']);
+        exit;
+    }
+
+    $id = $project_data['id'];
+    $title = $project_data['title'];
+    $description = $project_data['description'];
+    $date = $project_data['date'];
+
+    $stmt = $conn->prepare("UPDATE projects SET title=?, description=?, date=? WHERE id=?");
+    $stmt->bind_param("sssi", $title, $description, $date, $id);
+    $stmt->execute();
+
+    http_response_code(200);
+    echo json_encode(["message" => "updated one", "status" => 200]);
+
+    $conn->close();
+    exit;
+}
+
 echo json_encode(["message" => "why?"]);
 ?>
