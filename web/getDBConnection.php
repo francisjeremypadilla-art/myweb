@@ -4,7 +4,7 @@ function getDBConnection() {
     $host = "localhost";
     $db   = "portfolio_db";
     $user = "root";
-    $pass = "123456789";
+    $pass = "1234";
 
     $conn = new mysqli($host, $user, $pass, $db);
 

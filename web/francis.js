@@ -439,6 +439,7 @@ async function updateProject(fieldToEdit) {
     
     document.querySelector(".morph-gallery").addEventListener("click", async (e) => {
         if (!e.target.closest(".delete-btn")) return;
+        console.log("Delete button clicked for project with ID:" + e.target.closest(".delete-btn").dataset.index);
         document.getElementById("deleteModal").classList.add("show");
         document.getElementById("confirmDelete").dataset.projectId = e.target.closest(".delete-btn").dataset.index; 
     });
@@ -449,6 +450,7 @@ async function updateProject(fieldToEdit) {
     };
 
     document.getElementById("confirmDelete").onclick = () => {
+        console.log("Deleting project with ID:" + document.getElementById("confirmDelete").dataset.projectId);
         const id = document.getElementById("confirmDelete").dataset.projectId;
         deleteProject(id);
         document.getElementById("deleteModal").classList.remove("show");
