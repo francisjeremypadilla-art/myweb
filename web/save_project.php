@@ -114,5 +114,46 @@ if ($uri === "/myweb/web/save_project.php/update_project") {
     exit;
 }
 
+if ($uri === "/myweb/web/save_project.php/delete_project") {
+    header('Content-Type: application/json');
+
+    if ($method !== "POST") {
+        http_response_code(405);
+        echo json_encode(['error' => 'Method not allowed']);
+        exit;
+    }
+
+    // Read raw JSON body
+    $project_data = json_decode(file_get_contents("php://input"), true);
+
+    if (!$project_data || !isset($project_data['id'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Bad request']);
+        exit;
+    }
+
+    $id = (int)$project_data['id'];
+
+    $stmt = $conn->prepare("DELETE FROM projects WHERE id = ?");
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        http_response_code(200);
+        echo json_encode([
+            "message" => "Deleted successfully",
+            "status" => 200
+        ]);
+    } else {
+        http_response_code(500);
+        echo json_encode([
+            "error" => "Delete failed"
+        ]);
+    }
+
+    $stmt->close();
+    $conn->close();
+    exit;
+}
+
 echo json_encode(["message" => "why?"]);
 ?>
