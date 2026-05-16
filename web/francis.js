@@ -438,8 +438,9 @@ async function updateProject(fieldToEdit) {
 (() => {
     
     document.querySelector(".morph-gallery").addEventListener("click", async (e) => {
+        console.log(e.target.closest(".delete-btn"));
         if (!e.target.closest(".delete-btn")) return;
-        console.log("Delete button clicked for project with ID:" + e.target.closest(".delete-btn").dataset.index);
+        console.log("sadjiasdisad");
         document.getElementById("deleteModal").classList.add("show");
         document.getElementById("confirmDelete").dataset.projectId = e.target.closest(".delete-btn").dataset.index; 
     });
